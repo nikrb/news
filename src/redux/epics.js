@@ -6,9 +6,10 @@ import { retryTrackViewEpic, trackViewsEpic } from './track-views-epic';
 import viewStorageEpic from './view-storage-epic';
 
 const rootEpic = combineEpics(
-  retryTrackViewEpic,
+  // diable view tracking until we deploy this
+  // retryTrackViewEpic,
+  // trackViewsEpic,
   searchEpic,
-  trackViewsEpic,
   viewStorageEpic
 );
 

@@ -1,4 +1,7 @@
 const path = require('path');
+const _ = require('lodash');
+const { fromPromise } = require('rxjs/observable/fromPromise');
+const { forkJoin } = require('rxjs/observable/forkJoin');
 const { createFilePath } = require('gatsby-source-filesystem');
 const getViewCount = require('./utils/getViewCount');
 
@@ -20,34 +23,91 @@ exports.onCreateNode = async({ node, getNode, boundActionCreators }) => {
   }
 };
 
+const instanceNameTemplateMap = {
+  audio: 'Audio',
+  text: 'Artice',
+  video: 'Video'
+};
+
+function getTemplate(name) {
+  return instanceNameTemplateMap[name] || 'Article';
+}
+
 exports.createPages = ({ graphql, boundActionCreators }) => {
   const { createPage } = boundActionCreators;
-  return new Promise(resolve => {
+  const instanceNames$ = fromPromise(
     graphql(`
-      {
-        allMarkdownRemark(filter: { fields: { slug: { ne: "/LICENSE/" } } }) {
-          edges {
-            node {
-              fields {
-                slug
-              }
+    {
+      allFile(filter: {extension: {eq: "md"}}) {
+        edges {
+          node {
+            absolutePath
+          }
+        }
+      }
+    }
+
+    `)
+  );
+  const markdownNodes$ = fromPromise(
+    graphql(`
+    {
+      allMarkdownRemark(filter: {fields: {slug: {ne: "/LICENSE/"}}}) {
+        edges {
+          node {
+            fileAbsolutePath
+            fields {
+              slug
             }
           }
         }
       }
-    `).then(result => {
-      result.data.allMarkdownRemark.edges.map(({ node }) => {
-        createPage({
-          path: node.fields.slug,
-          component: path.resolve('./src/templates/Article.jsx'),
-          context: {
-            // Data passed to context is available in page queries as
-            // GraphQL variables.
-            slug: node.fields.slug
+    }
+    `)
+  );
+  return new Promise((resolve, reject) =>
+    forkJoin(
+      instanceNames$,
+      markdownNodes$,
+      (
+        { data: { allFile: { edges: nameEdges } } },
+        { data: { allMarkdownRemark: { edges: mdEdges } } }
+      ) => {
+        return mdEdges.map(md => {
+          const eIndex = _.findIndex(
+            nameEdges,
+            name => name.absolutlePath === md.fileAbsolutePath
+          );
+          if (eIndex !== -1) {
+            return {
+              node: {
+                ...md.node,
+                ...nameEdges[eIndex].node
+              }
+            };
           }
+          console.log(`Cannot find ${md.fileAbsolutePath}`);
+          return md;
         });
-      });
-      resolve();
-    });
-  });
+      }
+    )
+    .subscribe(
+      result => {
+        result.forEach(({ node }) => {
+          const { sourceInstanceName: name, fields: { slug } } = node;
+          createPage({
+            path: slug,
+            component: path.resolve(`./src/templates/${getTemplate(name)}.jsx`),
+            context: {
+              // Data passed to context is available in page queries as
+              // GraphQL variables.
+              slug
+            }
+          });
+        });
+      },
+      err => reject(err),
+      resolve
+    )
+  );
 };
