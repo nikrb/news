@@ -23,7 +23,7 @@ const TimeAfterPublish = ({ date }) => {
     timeSince = `${days} ${pluralise(days, 'day')} ago`;
   }
   return (
-    <span className='since-pub'>
+    <span className="since-pub">
       <time dateTime={date}>{timeSince}</time>
     </span>
   );

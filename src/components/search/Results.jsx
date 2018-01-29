@@ -42,11 +42,11 @@ function mapDispatchToProps(dispatch) {
 function MediaWrapper(props) {
   const { url } = props;
   return httpRE.test(url) ? (
-    <a className='colourDarkGrey' href={url} target='_blank'>
+    <a className="colourDarkGrey" href={url} target="_blank">
       {props.children}
     </a>
   ) : (
-    <Link className='colourDarkGrey' to={url}>
+    <Link className="colourDarkGrey" to={url}>
       {props.children}
     </Link>
   );
@@ -67,16 +67,16 @@ class Results extends PureComponent {
 
   renderResultItems() {
     const { results } = this.props;
-    return results.map((result) => {
+    return results.map(result => {
       const { _index, _source: { description, title, url } } = result;
       return (
         <MediaWrapper key={url} url={url}>
           <Media>
-            <Media.Left align='middle'>
+            <Media.Left align="middle">
               <FontAwesome
-                className='resultIcon'
+                className="resultIcon"
                 name={faNames[_index] ? faNames[_index] : ''}
-                size='3x'
+                size="3x"
               />
             </Media.Left>
             <Media.Body>
@@ -94,14 +94,14 @@ class Results extends PureComponent {
     return (
       <div>
         {results.length && (
-          <div className='searchResults'>{this.renderResultItems()}</div>
+          <div className="searchResults">{this.renderResultItems()}</div>
         )}
         <div
-          aria-atomic='true'
-          aria-live='polite'
-          className='sr-only'
-          role='status'
-          >
+          aria-atomic="true"
+          aria-live="polite"
+          className="sr-only"
+          role="status"
+        >
           {`${results.length} result${results.length === 1 ? '' : 's'} found`}
         </div>
       </div>

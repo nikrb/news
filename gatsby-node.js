@@ -5,7 +5,7 @@ const { forkJoin } = require('rxjs/observable/forkJoin');
 const { createFilePath } = require('gatsby-source-filesystem');
 const getViewCount = require('./utils/getViewCount');
 
-exports.onCreateNode = async({ node, getNode, boundActionCreators }) => {
+exports.onCreateNode = async ({ node, getNode, boundActionCreators }) => {
   const { createNodeField } = boundActionCreators;
   if (node.internal.type === 'MarkdownRemark') {
     const slug = createFilePath({ node, getNode });
@@ -37,32 +37,31 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
   const { createPage } = boundActionCreators;
   const instanceNames$ = fromPromise(
     graphql(`
-    {
-      allFile(filter: {extension: {eq: "md"}}) {
-        edges {
-          node {
-            absolutePath
-          }
-        }
-      }
-    }
-
-    `)
-  );
-  const markdownNodes$ = fromPromise(
-    graphql(`
-    {
-      allMarkdownRemark(filter: {fields: {slug: {ne: "/LICENSE/"}}}) {
-        edges {
-          node {
-            fileAbsolutePath
-            fields {
-              slug
+      {
+        allFile(filter: { extension: { eq: "md" } }) {
+          edges {
+            node {
+              absolutePath
             }
           }
         }
       }
-    }
+    `)
+  );
+  const markdownNodes$ = fromPromise(
+    graphql(`
+      {
+        allMarkdownRemark(filter: { fields: { slug: { ne: "/LICENSE/" } } }) {
+          edges {
+            node {
+              fileAbsolutePath
+              fields {
+                slug
+              }
+            }
+          }
+        }
+      }
     `)
   );
   return new Promise((resolve, reject) =>
@@ -90,8 +89,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           return md;
         });
       }
-    )
-    .subscribe(
+    ).subscribe(
       result => {
         result.forEach(({ node }) => {
           const { sourceInstanceName: name, fields: { slug } } = node;

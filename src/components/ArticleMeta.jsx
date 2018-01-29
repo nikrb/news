@@ -9,18 +9,18 @@ import './article-meta.less';
 function Social({ twitter, facebook }) {
   const twit =
     twitter !== 'none' ? (
-      <a href={twitter} title='Visit the author on twitter. '>
+      <a href={twitter} title="Visit the author on twitter. ">
         <FontAwesome name={'twitter'} />
       </a>
     ) : null;
   const face =
     facebook !== 'none' ? (
-      <a href={facebook} title='Visit the author on facebook. '>
+      <a href={facebook} title="Visit the author on facebook. ">
         <FontAwesome name={'facebook'} />
       </a>
     ) : null;
   return twit || face ? (
-    <span className='author-social'>
+    <span className="author-social">
       {twit}
       {face}
     </span>
@@ -43,8 +43,8 @@ function ArticleMeta(props) {
     views
   } = props;
   return (
-    <div className='author-block'>
-      <div className='author-name'>
+    <div className="author-block">
+      <div className="author-name">
         <h4>
           {author}
           {showSocial ? (
@@ -52,10 +52,10 @@ function ArticleMeta(props) {
           ) : null}
         </h4>
       </div>
-      <span className='article-meta'>
+      <span className="article-meta">
         <TimeAfterPublish date={date} /> -{' '}
-        <span title='Time to read'>{time} min</span>
-        <span className='fire' title='views'>
+        <span title="Time to read">{time} min</span>
+        <span className="fire" title="views">
           <FontAwesome name={'free-code-camp'} /> {views}
         </span>
       </span>

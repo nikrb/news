@@ -18,7 +18,7 @@ class HTML extends React.Component {
       css = (
         <style
           dangerouslySetInnerHTML={{ __html: stylesStr }}
-          id='gatsby-inlined-css'
+          id="gatsby-inlined-css"
         />
       );
     }
@@ -36,7 +36,7 @@ class HTML extends React.Component {
           {this.props.preBodyComponents}
           <div
             dangerouslySetInnerHTML={{ __html: this.props.body }}
-            id='___gatsby'
+            id="___gatsby"
             key={'body'}
           />
           {this.props.postBodyComponents}

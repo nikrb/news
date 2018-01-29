@@ -47,14 +47,14 @@ class IndexPage extends PureComponent {
           <title>freeCodeCamp News | What do you like to know today?</title>
         </Helmet>
         <h2>Latest news...</h2>
-        <div className='article-container'>
+        <div className="article-container">
           <Tiles articles={articlesToRender} />
-          <div className='load-wrapper'>
+          <div className="load-wrapper">
             <button
-              className='load-more'
+              className="load-more"
               disabled={!showLoadMore}
               onClick={this.handleLoadClick}
-              >
+            >
               Load More
             </button>
           </div>

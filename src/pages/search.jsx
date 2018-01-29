@@ -57,7 +57,7 @@ function SearchPage(props) {
       <Helmet>
         <title>Search | freeCodeCamp News</title>
       </Helmet>
-      <h2 className='colourDarkGrey'>Search Results</h2>
+      <h2 className="colourDarkGrey">Search Results</h2>
       {isSearching && !results.length ? (
         <ResultsSkeleton />
       ) : (

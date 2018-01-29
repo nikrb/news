@@ -22,10 +22,13 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    fetchSearchResults,
-    updateSearchTerm
-  }, dispatch);
+  return bindActionCreators(
+    {
+      fetchSearchResults,
+      updateSearchTerm
+    },
+    dispatch
+  );
 }
 
 class NewsNav extends Component {
@@ -79,7 +82,7 @@ class NewsNav extends Component {
           onToggle={isDropdownOpen ? closeDropdown : openDropdown}
           open={isDropdownOpen}
           title={content}
-          >
+        >
           {links.map(this.renderLink.bind(this, false))}
         </NavDropdown>
       );
@@ -99,7 +102,7 @@ class NewsNav extends Component {
         key={content}
         rel={rel || null}
         target={target || null}
-        >
+      >
         {content}
       </Component>
     );
@@ -109,13 +112,13 @@ class NewsNav extends Component {
     const { searchTerm } = this.props;
     return (
       <div>
-        <Navbar className='nav-height' id='navbar' staticTop={true}>
-          <Navbar.Header className='brand-header'>
+        <Navbar className="nav-height" id="navbar" staticTop={true}>
+          <Navbar.Header className="brand-header">
             <Navbar.Toggle children={'Menu'} />
-            <Link className='brand-logo-wrap' to='/'>
+            <Link className="brand-logo-wrap" to="/">
               <img
-                alt='learn to code javascript at freeCodeCamp logo'
-                className='img-responsive nav-logo'
+                alt="learn to code javascript at freeCodeCamp logo"
+                className="img-responsive nav-logo"
                 src={fCClogo}
               />
             </Link>
@@ -126,9 +129,9 @@ class NewsNav extends Component {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <Navbar id='searchNav'>
-          <div className='row'>
-            <div className='col-xs-12'>
+        <Navbar id="searchNav">
+          <div className="row">
+            <div className="col-xs-12">
               <SearchBar
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}

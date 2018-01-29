@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 const proptypes = {};
 
 function Video() {
-
-  return (
-    <h1>This is video</h1>
-  );
+  return <h1>This is video</h1>;
 }
 
 Video.displayName = 'Video';

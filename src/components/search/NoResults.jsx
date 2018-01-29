@@ -11,17 +11,17 @@ function NoResults(props) {
   const helperContent = searchTerm.length ? ' else' : '';
 
   return (
-    <div className='flexWrapper'>
-      <div className='verticalAlign'>
+    <div className="flexWrapper">
+      <div className="verticalAlign">
         <h3>{helperHeader}</h3>
         <p>You can try searching for something{helperContent}, or</p>
         <Link to={page}>
-          <Button bsSize='large' className='button'>
+          <Button bsSize="large" className="button">
             Return to the previous page
           </Button>
         </Link>
       </div>
-      <div aria-live='polite' className='sr-only' role='status'>
+      <div aria-live="polite" className="sr-only" role="status">
         No results found
       </div>
     </div>

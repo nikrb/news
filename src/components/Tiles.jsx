@@ -19,9 +19,9 @@ function Tiles({ articles }) {
         } = article.node;
         return (
           <li key={slug} title={title}>
-            <Link className='tile' to={slug}>
-              <div className='center-wrap'>
-                <div className='article-details'>
+            <Link className="tile" to={slug}>
+              <div className="center-wrap">
+                <div className="article-details">
                   <h4>{title}</h4>
                   <ArticleMeta
                     author={author}
@@ -30,11 +30,11 @@ function Tiles({ articles }) {
                     time={timeToRead}
                     views={viewCount}
                   />
-                  <div className='center-wrap direction-row'>
-                    <p className='excerpt'>{excerpt}</p>
+                  <div className="center-wrap direction-row">
+                    <p className="excerpt">{excerpt}</p>
                   </div>
                 </div>
-                <div className='center-wrap img-wrap direction-row'>
+                <div className="center-wrap img-wrap direction-row">
                   <img
                     alt={`${title} cover image. `}
                     src={coverSrc || placeHolder}
